@@ -146,7 +146,7 @@ public class UserService implements UserDetailsService{
 	private void copyDtoToEntity(UserDTO dto, User entity) {
 
 		entity.setName(dto.getName());
-		//entity.setLastName(dto.getLastName());
+		
 		entity.setEmail(dto.getEmail());		
 
 		entity.getRoles().clear();
@@ -159,8 +159,7 @@ public class UserService implements UserDetailsService{
 	
 	//Verifica se o email fornecido já existe antes de inserir
 	public boolean validaInsertUser(UserInsertDTO dtoRequest) {		
-		
-		// Coloque aqui seus testes de validação, acrescentando objetos FieldMessage à lista
+				
 		User user = repository.findByEmail(dtoRequest.getEmail());
 		if(user != null) {			
 			dtoRequest.errorList.add(new FieldMessage("email", "Email já existe;"));

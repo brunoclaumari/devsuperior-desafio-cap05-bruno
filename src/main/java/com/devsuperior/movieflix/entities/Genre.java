@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.devsuperior.movieflix.dto.GenreDTO;
-
 @Entity
 @Table(name = "tb_genre")
 public class Genre implements Serializable {

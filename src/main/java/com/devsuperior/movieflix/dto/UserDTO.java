@@ -19,8 +19,7 @@ public class UserDTO implements Serializable{
 	
 	private String name;	
 	
-	private String email;
-	
+	private String email;	
 
 	@JsonIgnore
 	Set<ReviewDTO> reviews = new HashSet<>();		

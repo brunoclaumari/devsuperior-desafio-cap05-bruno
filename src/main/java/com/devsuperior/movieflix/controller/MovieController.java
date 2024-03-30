@@ -1,6 +1,7 @@
 package com.devsuperior.movieflix.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.movieflix.dto.MovieDTO;
+import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.services.MovieService;
 
 
@@ -49,6 +51,15 @@ public class MovieController {
 		MovieDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	@GetMapping(value = "/{id}/reviews")
+	public ResponseEntity<List<ReviewDTO>> findReviewsByMovieId(@PathVariable Long id) {
+
+		List<ReviewDTO> list = service.findMovieReviews(id);
+		//MovieDTO dto = service.findById(id);
+		return ResponseEntity.ok().body(list);
+	}	
+	
 	
 	@PostMapping
 	public ResponseEntity<MovieDTO> insert(@Valid @RequestBody MovieDTO dto) {

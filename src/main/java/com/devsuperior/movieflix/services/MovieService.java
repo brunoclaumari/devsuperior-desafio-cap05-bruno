@@ -1,8 +1,10 @@
 package com.devsuperior.movieflix.services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -19,8 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.dto.GenreDTO;
 import com.devsuperior.movieflix.dto.MovieDTO;
+import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
+import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.repositories.GenreRepository;
 import com.devsuperior.movieflix.repositories.MovieRepository;
 import com.devsuperior.movieflix.repositories.ReviewRepository;
@@ -64,15 +68,21 @@ public class MovieService{
 
 		Page<Movie> list = repository.findWithFilterGenreId(genres, pageRequest);
 		// Usando 'expressão lambda' para transferir Movie para MovieDTO
-		return list.map(x -> new MovieDTO(x));
+		return list.map(x -> new MovieDTO(x, x.getReviews()));
 	}
 	
 	//Movie reviews
 	///movies/1/reviews
-	public List<MovieDTO> findMovieReviews(Long movieId){
+	public List<ReviewDTO> findMovieReviews(Long movieId){
 		
+		List<ReviewDTO> listReview = new ArrayList<>();
+	
+		List<Review> lista = reviewRepository.findByMovieId(movieId);
+		if(lista != null && lista.size() > 0) {
+			lista.forEach(x->listReview.add(new ReviewDTO(x)));
+		}
 		
-		return null;
+		return listReview;
 	}
 
 	@Transactional(readOnly = true)

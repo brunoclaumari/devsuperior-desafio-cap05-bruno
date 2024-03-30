@@ -31,11 +31,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**"};
 	
-	private static final String[] MOVIES_AND_REVIEWS_PERMISSION = {"/movies/**","/reviews/**,/users/**"};//MEMBER E VISITOR 
-	
-	//private static final String[] ANY_POST_PERMISSION = {"/reviews/**"};//MEMBER
-	
-	private static final String[] ONLY_ADMIN_PERMISSION = {"/roles/**,/genres/**"};//APENAS MEMBER
+	private static final String[] MOVIES_REVIEWS_USERS_PERMISSION = {"/movies/**","/reviews/**","/users/**"};//MEMBER E VISITOR	
+
 	
 	private static final String[] SWAGGER_WHITELIST = {
             "/v2/api-docs",
@@ -65,9 +62,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
 		.antMatchers(SWAGGER_WHITELIST).permitAll()
-		.antMatchers(HttpMethod.GET, MOVIES_AND_REVIEWS_PERMISSION).hasAnyRole("VISITOR", "MEMBER")			
-		.antMatchers(MOVIES_AND_REVIEWS_PERMISSION).hasRole("MEMBER")	
-		.antMatchers(ONLY_ADMIN_PERMISSION).hasRole("MEMBER")
+		.antMatchers(HttpMethod.GET, MOVIES_REVIEWS_USERS_PERMISSION).hasAnyRole("VISITOR", "MEMBER")
+		.antMatchers(HttpMethod.GET, "/genres/**").hasAnyRole("VISITOR", "MEMBER")
+		.antMatchers(MOVIES_REVIEWS_USERS_PERMISSION).hasRole("MEMBER")			
+		.antMatchers("/roles/**").hasRole("MEMBER")
+		.antMatchers("/genres/**").hasRole("MEMBER")		
 		.anyRequest().authenticated();
 		
 		//passando a configuração de CORS

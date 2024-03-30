@@ -24,11 +24,9 @@ public class MovieDTO implements Serializable{
 	private String imgUrl;
 	
 	private String synopsis;	
-
-	//relações
+	
 	Set<ReviewDTO> reviews = new HashSet<>();	
-
-	//relações
+	
 	@JsonProperty("genre")
 	private GenreDTO genreDTO;
 	

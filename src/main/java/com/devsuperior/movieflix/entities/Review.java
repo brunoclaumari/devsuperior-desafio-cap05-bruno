@@ -31,7 +31,7 @@ public class Review implements Serializable {
     	private UserLazy user;
 	 * */
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 	

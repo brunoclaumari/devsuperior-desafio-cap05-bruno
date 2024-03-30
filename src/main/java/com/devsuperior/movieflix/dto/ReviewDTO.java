@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 
 import com.devsuperior.movieflix.entities.Review;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -14,14 +15,16 @@ public class ReviewDTO implements Serializable {
 
 	private Long id;	
 	
-	@NotBlank()
+	@NotBlank(message = "Não pode deixar este campo em branco")
 	private String text;	
 
+	private Long movieId;	
+	
 	private UserDTO user;	
 
+	@JsonIgnore
 	private MovieDTO movie;
 	
-	private Long movieId;
 	
 	public ReviewDTO() {
 		
@@ -35,9 +38,8 @@ public class ReviewDTO implements Serializable {
 	public ReviewDTO(Review entity) {
 		this.id = entity.getId();
 		this.text = entity.getText();
-//		if(getFullData) {
-//			this.movie.setId(entity.getMovie().getId());
-//		}
+		this.movieId = entity.getMovie().getId();
+		this.user = new UserDTO(entity.getUser());
 	}
 
 	public Long getId() {

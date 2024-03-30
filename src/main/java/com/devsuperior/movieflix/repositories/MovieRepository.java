@@ -12,15 +12,7 @@ import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Movie, Long> {
-	
-	/*
-	 * 	@Query("SELECT DISTINCT mov FROM Movie mov "
-			+ "INNER JOIN mov.genres cats WHERE "
-			+ "(COALESCE(:categories) IS NULL OR cats IN :genres) AND "
-			+ "(LOWER(obj.name) LIKE LOWER(CONCAT('%',:name,'%')) )")
-	 * */
-	
+public interface MovieRepository extends JpaRepository<Movie, Long> {	
 	
 	@Query("SELECT DISTINCT mov FROM Movie mov "
 			+ "INNER JOIN mov.genre gen WHERE "
