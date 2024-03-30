@@ -45,16 +45,7 @@ public class MovieService{
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
-	
-	/*
-	 * @Transactional(readOnly = true)
-	public Page<MovieDTO> findAllPaged(Long GenreId, String name, PageRequest pageRequest) {
-		List<Genre> categories = (GenreId == 0) ? null : Arrays.asList(GenreRepository.getOne(GenreId));
 
-		Page<Movie> list = repository.find(categories, name, pageRequest);
-		// Usando 'expressão lambda' para transferir Movie para MovieDTO
-		return list.map(x -> new MovieDTO(x));
-	}*/
 	
 	@Transactional(readOnly = true)
 	public Page<MovieDTO> findAll(Pageable pageable) {
@@ -71,8 +62,7 @@ public class MovieService{
 		return list.map(x -> new MovieDTO(x, x.getReviews()));
 	}
 	
-	//Movie reviews
-	///movies/1/reviews
+	@Transactional(readOnly = true)
 	public List<ReviewDTO> findMovieReviews(Long movieId){
 		
 		List<ReviewDTO> listReview = new ArrayList<>();

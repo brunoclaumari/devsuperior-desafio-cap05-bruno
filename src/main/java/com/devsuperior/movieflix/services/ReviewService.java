@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.dto.UserDTO;
 import com.devsuperior.movieflix.entities.Review;
-import com.devsuperior.movieflix.entities.User;
 import com.devsuperior.movieflix.repositories.MovieRepository;
 import com.devsuperior.movieflix.repositories.ReviewRepository;
 import com.devsuperior.movieflix.repositories.UserRepository;
@@ -46,20 +45,7 @@ public class ReviewService{
 
 		return new ReviewDTO(entity);
 	}
-
-//	@Transactional
-//	public MovieDTO update(Long id, MovieDTO dto) {
-//		try {
-//			Movie entity = reviewRepository.getOne(id);
-//			copyDtoToEntity(dto, entity);
-//			entity = repository.save(entity);
-//			return new MovieDTO(entity);
-//
-//		} catch (EntityNotFoundException e) {
-//			throw new ResourceNotFoundException("Id not found: " + id);
-//		}
-//
-//	}
+	
 
 	// Único sem Transactional, pois tem que capturar uma exceção e o transactional
 	// não deixaria
@@ -80,8 +66,7 @@ public class ReviewService{
 
 	private void copyDtoToEntity(ReviewDTO dto, Review entity) {
 
-		UserDTO userDto = userService.getLoggedUser();
-		//dto.setUser(userDto);
+		UserDTO userDto = userService.getLoggedUser();		
 		
 		entity.setId(dto.getId());
 		entity.setText(dto.getText());
@@ -93,17 +78,8 @@ public class ReviewService{
 		var user = userRepository.findById(userDto.getId()).get();
 		if(user != null)
 			entity.setUser(user);
-		//entity.setUser(new User(userDto.getId(), userDto.getName(), userDto.getEmail(), null));
-
 
 	}
-	
-//	private Genre copyDtoToGenre(GenreDTO dto) {
-//		
-//		return new Genre(dto.getId(), dto.getName());
-//	}
-
-
 	
 
 }

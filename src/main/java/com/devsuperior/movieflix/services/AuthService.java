@@ -1,17 +1,12 @@
 package com.devsuperior.movieflix.services;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.movieflix.dto.UserDTO;
 import com.devsuperior.movieflix.entities.User;
 import com.devsuperior.movieflix.repositories.UserRepository;
 import com.devsuperior.movieflix.services.exceptions.ForbiddenException;
